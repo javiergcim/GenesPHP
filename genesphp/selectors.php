@@ -53,7 +53,7 @@ function select_vasconcelos(&$task, &$args)
 function select_tournament(&$task, &$args)
 {
     $k = $args['k'];
-    if (array_key_exists('obj_index', $args)) {
+    if (\array_key_exists('obj_index', $args)) {
         $obj_index = $args['obj_index'];
     }
     else {
