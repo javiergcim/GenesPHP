@@ -51,14 +51,71 @@ function gauss_dist($mean, $sd, $integer)
 }
 
 /**
-* Crea una permutación al azar in-situ de $elements con el algoritmo
+* Convierte un número flotante a una expresión binaria de punto fijo.
+*
+* @param float $num El número a convertir.
+* @param bool $sign Indica si debe usarse bit de signo.
+* @param int $i_dig Cantidad de digitos para la parte entera.
+* @param int $d_dig Cantidad de digitos para la mantisa.
+*
+* @return array Un arreglo con el número codificado en binario.
+**/
+function dec_to_bin($num, $sign, $i_dig, $d_dig)
+{
+    if ($num >= 0.0) {
+        if ($sign) {
+            $binary = ['0'];
+        }
+        else {
+            $binary = [];
+        }
+        $numint = \floor($num);
+        $numdec = $num - $numint;
+    }
+    else if ($num < 0.0 && $sign) {
+        $binary = ['1'];
+        $numint = -\ceil($num);
+        $numdec = -($num + $numint);
+    }
+    else {
+        throw new Exception('Invalid number or out of range value');
+    }
+
+    $binint = \decbin(numint);
+    $missed = $i_dig - \count($binint);
+    if ($missed < 0) {
+        throw new Exception('Out of range value!');
+    }
+    $binint = \array_merge(\array_fill(0, $missed, '0'), \str_split($binint));
+
+    $bindec = [];
+    for ($i = -1; $i >= -$d_dig; $i--) {
+        $n = 2.0**$i;
+        if (($numdec - $n) < 0.0) {
+            $bindec[] = '0';  // Se agrega un '0'
+        }
+        else {
+            $bindec[] = '1';  // Se agrega un '1'
+            $numdec -= $n;
+        }
+    }
+
+    $binary = \array_merge($binary, $binint);
+    $binary = \array_merge($binary, $bindec);
+
+    return $binary;
+}
+
+/**
+* Crea una permutación al azar in-situ de *$elements* con el algoritmo
 * Fisher-Yates.
 *
 * Fisher, R. A., & Yates, F. (1943). Statistical tables for biological,
 * agricultural and medical research. Oliver and Boyd Ltd, London.
 *
 * *Asunciones:*
-* Se asume que el arreglo posee indices númerados de 0 a count($elements - 1).
+* Se asume que el arreglo posee indices númerados de *0* a
+* *count($elements - 1)*.
 *
 * @param array @elements Un arreglo con los elementos a permutar.
 **/

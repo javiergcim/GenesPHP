@@ -39,6 +39,40 @@ function mutate_swap(&$task, &$individual, &$args)
 }
 
 /**
+* Muta el individuo proporcionado in-situ, intercambiando el valor de
+* una posición del genoma de 0 a 1, o visceversa (sólo para genomas binarios).
+* La elección del bit a cambiar se hace con probabilidad *mp*.
+*
+* Establece en *null* el fitness del individuo mutado.
+*
+* @param Task $task Una referencia a la tarea asociada al elemento (no usada).
+* @param Individual $individual Un individuo.
+* @param array $args Un arreglo con los parámetros propios de este método. *mp*
+* como un número entre 0.0 y 1.0, que representa la probabilidad de que un
+* elemento de $genome sea escogido para ser alterado.
+**/
+function mutate_flip(&$task, &$individual, &$args)
+{
+    $mp = $args['mp'];
+    $gen = $individual->get_raw_genome();
+    $max_i = \count($gen) - 1;
+
+    $j = geometric_dist($mp) - 1;  // Primer j (y nodo a alterar)
+    while ($j <= $max_i) {
+        if ($gen[$j] == '0') {
+            $gen[$j] = '1';
+        }
+        else {
+            $gen[$j] = '1';
+        }
+        $j += geometric_dist($mp);
+    }
+
+    $individual->set_genome_from_raw($gen);
+    $individual->set_fitness(null);
+}
+
+/**
 * Muta el individuo proporcionado in situ. Divide el genoma en tres
 * subarreglos A, B, C. El operador hace al genoma A, C, B.
 *
