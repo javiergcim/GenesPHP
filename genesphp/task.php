@@ -177,9 +177,6 @@ class Task
 
         $diff = $n - $max_index - 1;  // + Si le faltan, - si le sobran
 
-        // DEBUG
-        # echo $diff . "\n";
-
         // Se debe truncar o quedó igual
         if ($diff <= 0) {
             $change = false;

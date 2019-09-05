@@ -230,8 +230,10 @@ function crossover_scx(&$task, &$ind_a, &$ind_b, &$args)
     // Se instancias los hijos
     $a = clone($ind_a);
     $a->set_genome_from_raw($son_l_gen);
+    $a->set_fitness(null);
     $b = clone($ind_b);
     $b->set_genome_from_raw($son_r_gen);
+    $b->set_fitness(null);
 
     return [$a, $b];
 }
@@ -422,8 +424,12 @@ function crossover_pseudoscx(&$task, &$ind_a, &$ind_b, &$args)
     // Se instancias los hijos
     $a = clone($ind_a);
     $a->set_genome_from_raw($son_l_gen);
+    $a->set_fitness(null);
     $b = clone($ind_b);
     $b->set_genome_from_raw($son_r_gen);
+    $b->set_fitness(null);
+
+    return [$a, $b];
 }
 
 /**
@@ -441,10 +447,9 @@ function crossover_one_point(&$task, &$ind_a, &$ind_b, &$args)
     // Elegimos al azar el punto de corte
     $gen_a = $ind_a->get_raw_genome();
     $gen_b = $ind_b->get_raw_genome();
-    $size = \count($gen_a);
+    $size_1 = \count($gen_a) - 1;
 
-    $range = \range(1, $size - 1);
-    $cut_point = $range[\array_rand($range)];
+    $cut_point = \mt_rand(1, $size_1);
     $left_a = \array_slice($gen_a, 0, $cut_point);
     $right_a = \array_slice($gen_a, $cut_point);
 
@@ -454,9 +459,13 @@ function crossover_one_point(&$task, &$ind_a, &$ind_b, &$args)
     $son_l_gen = \array_merge($left_a, $right_b);
     $son_r_gen = \array_merge($left_b, $right_a);
 
-    // Se instancias los hijos
+    // Se instancian los hijos
     $a = clone($ind_a);
     $a->set_genome_from_raw($son_l_gen);
+    $a->set_fitness(null);
     $b = clone($ind_b);
     $b->set_genome_from_raw($son_r_gen);
+    $b->set_fitness(null);
+
+    return [$a, $b];
 }

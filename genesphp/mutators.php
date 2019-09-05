@@ -63,7 +63,7 @@ function mutate_flip(&$task, &$individual, &$args)
             $gen[$j] = '1';
         }
         else {
-            $gen[$j] = '1';
+            $gen[$j] = '0';
         }
         $j += geometric_dist($mp);
     }

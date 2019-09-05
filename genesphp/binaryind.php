@@ -99,7 +99,7 @@ class BinaryInd extends Individual
     *
     * @param array $genome El genome en su forma amigable.
     **/
-    public function set_genome($genome)
+    public function set_genome(&$genome)
     {
         $n_vars = count($this->var_bits);
         $struct = $this->struct;

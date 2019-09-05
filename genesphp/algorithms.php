@@ -120,6 +120,7 @@ function cos_mutation_ga(
             (\cos($g * $cycle_mp) * $half_max_mp) + $half_max_mp);
 
         $elite_pop = $task->get_subpopulation_copy(0, $n_elite);
+
         $task->apply_selection();
         $task->mutate();
         $task->evaluate();
@@ -129,6 +130,9 @@ function cos_mutation_ga(
             $task->evaluate();
             $task->order_population();
         }
+
+        // DEBUG
+        // print_r($task->get_population());
 
         // Se verifica si se debe imprimir
         if ($verbose != INF) {

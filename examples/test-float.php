@@ -35,7 +35,9 @@ function opti_func()
     $task = new \genesphp\Task();
 
     // Se establece población;
-    $the_pop = \genesphp\init_float_pop($n, $vars, -50.0, 50.0);
+    $struct = [[True, 5, 5],  # x
+               [True, 5, 5]];  # y
+    $the_pop = \genesphp\init_binary_pop($n, $struct);
     $task->set_population($the_pop);
 
     // Se establecen funciones de cruza, mutacion y selección

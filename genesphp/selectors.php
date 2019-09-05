@@ -18,7 +18,7 @@ function select_vasconcelos(&$task, &$args)
 {
     $cp = $args['cp'];
     $mayor = $task->get_size() - 1;
-    $max_minor = \floor($task->get_size() / 2);
+    $max_minor = \floor($mayor / 2.0);
     $population = $task->get_population();
 
     // Hacemos la selección (mejor contra peor)
@@ -30,6 +30,8 @@ function select_vasconcelos(&$task, &$args)
                 $population[$minor],
                 $population[$mayor]
             );
+
+
             $population[$minor] = $childs[0];
             $population[$mayor] = $childs[1];
         }
