@@ -56,7 +56,7 @@ function opti_func()
     );
 
     echo $sol . "\n";
-    print_r($sol->get_genome());
+    echo 'Friendly genome: ' . print_r($sol->get_genome(), true);
 }
 
 opti_func();
