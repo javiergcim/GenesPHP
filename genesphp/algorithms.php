@@ -131,9 +131,6 @@ function cos_mutation_ga(
             $task->order_population();
         }
 
-        // DEBUG
-        // print_r($task->get_population());
-
         // Se verifica si se debe imprimir
         if ($verbose != INF) {
             if ($g % $verbose == 0) {

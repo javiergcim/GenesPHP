@@ -1,5 +1,5 @@
 <?php
-/** An example script
+/** Un script de ejemplo
 **/
 
 include_once __DIR__ . '/../genesphp/task.php';
