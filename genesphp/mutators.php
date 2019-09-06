@@ -18,6 +18,8 @@ include_once 'utils.php';
 **/
 function mutate_swap(&$task, &$individual, &$args)
 {
+    $changed = false;
+
     $mp = $args['mp'];
     $gen = $individual->get_raw_genome();
     $max_i = \count($gen) - 1;
@@ -32,6 +34,8 @@ function mutate_swap(&$task, &$individual, &$args)
         $gen[$j] = $gen[$k];
         $gen[$k] = $tmp;
         $j += geometric_dist($mp);
+
+        $changed = true;
     }
 
     $individual->set_genome_from_raw($gen);
@@ -53,6 +57,8 @@ function mutate_swap(&$task, &$individual, &$args)
 **/
 function mutate_flip(&$task, &$individual, &$args)
 {
+    $changed = false;
+
     $mp = $args['mp'];
     $gen = $individual->get_raw_genome();
     $max_i = \count($gen) - 1;
@@ -66,10 +72,14 @@ function mutate_flip(&$task, &$individual, &$args)
             $gen[$j] = '0';
         }
         $j += geometric_dist($mp);
+
+        $changed = true;
     }
 
-    $individual->set_genome_from_raw($gen);
-    $individual->set_fitness(null);
+    if ($changed) {
+        $individual->set_genome_from_raw($gen);
+        $individual->set_fitness(null);
+    }
 }
 
 /**
@@ -85,8 +95,9 @@ function mutate_flip(&$task, &$individual, &$args)
 **/
 function mutate_insert(&$task, &$individual, &$args)
 {
-    $gen = $individual->get_raw_genome();
+    $changed = true;
 
+    $gen = $individual->get_raw_genome();
     $max_i = \count($gen) - 1;
     $a = \mt_rand(0, $max_i);
     $b = \mt_rand(0, $max_i);
@@ -96,6 +107,9 @@ function mutate_insert(&$task, &$individual, &$args)
         $a = $b;
         $b = $tmp;
     }
+    else if ($b == $a) {
+        $changed = false;
+    }
 
     $slice_a = \array_slice($gen, 0, $a);
     $slice_b = \array_slice($gen, $a, $b - $a);
@@ -103,22 +117,24 @@ function mutate_insert(&$task, &$individual, &$args)
 
     $gen = \array_merge($slice_a, $slice_c, $slice_b);
 
-    $individual->set_genome_from_raw($gen);
-    $individual->set_fitness(null);
+    if ($changed) {
+        $individual->set_genome_from_raw($gen);
+        $individual->set_fitness(null);
+    }
 }
 
 /**
 * Muta el individuo proporcionado in situ, elige al azar un operador de
-* mutación de los especificados en la inicialización. Los parámetros de para
+* mutación de los especificados en la inicialización. Los parámetros para
 * cada operador de mutación se especificaron en la inicialización.
-*
-* Establece en null el fitness del individuo mutado.
 *
 * @param Task $task Una referencia a la tarea asociada al elemento.
 * @param Individual $individual Un individuo.
 * @param array $args Un arreglo con los parámetros propios de este método.
-* 'operators': Un arreglo con las funciones de mutación. El resto de llaves se
-* corresponderán con los parámetros dados a las funciones de mutación.
+* La llave 'operators' será un arreglo con las funciones de mutación. El resto
+* de llaves se corresponderán con los parámetros dados a las funciones de
+* mutación.
+*
 * Si más de un operador de mutación utilizan un argumento con el mismo
 * nombre, será compartido entre ellos.
 **/
@@ -145,6 +161,8 @@ function mutate_multiple(&$task, &$individual, &$args)
 **/
 function mutate_normal(&$task, &$individual, &$args)
 {
+    $changed = false;
+
     $mp = $args['mp'];
     $sd = $args['sd'];
     $integer = $args['integer'];
@@ -157,8 +175,12 @@ function mutate_normal(&$task, &$individual, &$args)
         $gen[$j] = gauss_dist($mean, $sd, $integer);
 
         $j += geometric_dist($mp);
+
+        $changed = true;
     }
 
-    $individual->set_genome_from_raw($gen);
-    $individual->set_fitness(null);
+    if ($changed) {
+        $individual->set_genome_from_raw($gen);
+        $individual->set_fitness(null);
+    }
 }
