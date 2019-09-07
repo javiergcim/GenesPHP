@@ -45,7 +45,7 @@ function peg_optimize_travel($destinations, $start = 'pegalinas')
     $max_mp = 0.5; // Máxima probabilidad de mutación
     $cycle_mp = 100.0; // Generaciónes por ciclo de mutación
     $elitism = 1.0;  // Porcentaje de elitismo
-    $verbose = 10;
+    $verbose = 10;  // Frecuencia de reporte
 
     // Calculamos una duración adecuada de ejecución (MAX 30 segundos):
     $duration = pow(count($destinations), 3) * .0009;

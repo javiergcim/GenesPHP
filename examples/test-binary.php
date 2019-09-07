@@ -37,7 +37,7 @@ function opti_func()
     $cycle_mp = 100.0; // Generaciónes por ciclo de mutación
     $elitism = 1.0;  // Porcentaje de elitismo
     $duration = INF;  // Duración máxima en segundos
-    $verbose = 10;  // frecuencia de reporte
+    $verbose = 10;  // Frecuencia de reporte
 
     // Se crea la tarea
     $task = new \genesphp\Task();
