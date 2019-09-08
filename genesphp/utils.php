@@ -253,14 +253,13 @@ function create_distance_matrix($points)
 /**
 * Costo de un viaje del tipo *agente viajero*.
 *
-* @param Task $task Un objeto Task asociado al genoma.
 * @param array $genome El genoma a evaluar.
+* @param mixed $data Un objeto arbitrario.
 *
 * @return float La evaluación del individuo.
 **/
-function travel_cost(&$task, &$genome)
+function travel_cost(&$genome, &$data)
 {
-    $data = $task->get_data();
     $start = $data['start'];
     $max_i = \count($genome) - 2;
     $matrix = $data['cost'];

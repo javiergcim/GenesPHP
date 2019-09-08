@@ -18,16 +18,16 @@ include_once __DIR__ . '/../genesphp/selectors.php';
 *
 * @return float El fitness asociado a los argumentos proporcionados.
 **/
-function beale(&$task, &$genome) {
+function example_evaluation_function(&$genome, &$data) {
     return pow(1.5 - $genome[0] + ($genome[0] * $genome[1]), 2) +
            pow(2.25 - $genome[0] + ($genome[0] * pow($genome[1], 2)) , 2) +
            pow(2.625 - $genome[0] + ($genome[0] * pow($genome[1], 3)), 2);
 }
 
 /**
-* Ésta función prepara la tarea y ejecuta el algorítmo genético.
+* Esta función prepara la tarea y ejecuta el algoritmo genético.
 **/
-function opti_func()
+function my_example()
 {
     // Se crean valores de configuración
     $n = 500;  // Individuos
@@ -44,14 +44,14 @@ function opti_func()
     // Se crea la tarea
     $task = new \genesphp\Task();
 
-    // Se establece población;
+    // Se crea y asigna la población inicial
     $struct = [[True, 5, 5],  # x
                [True, 5, 5]];  # y
     $the_pop = \genesphp\init_binary_pop($n, $struct);
     $task->set_population($the_pop);
 
     // Se establecen funciones de cruza, mutacion y selección
-    $task->set_evals(['beale'], [-1.0]);
+    $task->set_evals(['example_evaluation_function'], [-1.0]);
     $task->set_mutator('\\genesphp\\mutate_normal',
                        ['mp' => 1.0, 'sd' => 5.0, 'integer' => false]);
     $task->set_crossover('\\genesphp\\crossover_one_point');
@@ -69,7 +69,8 @@ function opti_func()
         $verbose
     );
 
-    echo $sol;
+    echo $sol . "\n";
+    echo "Genome only:\n" . print_r($sol->get_genome(), true);
 }
 
-opti_func();
+my_example();

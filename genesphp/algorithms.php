@@ -2,14 +2,14 @@
 namespace genesphp;
 
 /**
-* Ejecuta una algorítmo genético genérico, con posibilidad de elitismo.
+* Ejecuta una algoritmo genético genérico, con posibilidad de elitismo.
 *
 * @param Task $task Un objeto Task con los parámetros y la población requerida
-* para la ejecución del algorítmo.
+* para la ejecución del algoritmo.
 * @param float $elitismo Porcentaje de individuos que se guardarán como elite
 * para la siguiente generación.
 * @param int $sec Segundos que aproximadamente correrá el algoritmo.
-* @param int $gen Generaciones que se ejecutara el algorítmo genético.
+* @param int $gen Generaciones que se ejecutara el algoritmo genético.
 * @param int $verbose Indica cada cuantas generaciones se reportan avances.
 *
 * @return Individual El individuo con mejor aptitud al momento de finalizar la
@@ -68,19 +68,19 @@ function general_ga(
 }
 
 /**
-* Ejecuta una algorítmo genético genérico, con posibilidad de elitismo, que
+* Ejecuta una algoritmo genético genérico, con posibilidad de elitismo, que
 * genera una probabilidad de mutación *$mp* variable a lo largo de las
-* generaciones, en función de una función coseno.
+* generaciones, de acuerdo una función coseno.
 *
 * @param Task $task Un objeto Task con los parámetros y la población requerida
-* para la ejecución del algorítmo.
+* para la ejecución del algoritmo.
 * @param float $max_mp Probabilidad máxima de mutación.
 * @param float $cycle_mp Indica cuantas generaciones dura un ciclo en el
 * cambio de valor de la propabilidad de mutación.
 * @param float $elitismo Porcentaje de individuos que se guardarán como elite
 * para la siguiente generación.
 * @param int $sec Segundos que aproximadamente correrá el algoritmo.
-* @param int $gen Generaciones que se ejecutara el algorítmo genético.
+* @param int $gen Generaciones que se ejecutará el algoritmo genético.
 * @param int $verbose Indica cada cuantas generaciones se reportan avances.
 *
 * @return Individual El individuo con mejor aptitud al momento de finalizar la

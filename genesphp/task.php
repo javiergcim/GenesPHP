@@ -549,6 +549,7 @@ class Task
     **/
     public function evaluate()
     {
+        $data = $this->data;
         $n_evals = \count($this->objectives);
         if ($this->constraints) {
             $n_constraints = \count($this->constraints);
@@ -563,13 +564,12 @@ class Task
                 // Calculamos las restricciones
                 $failed = 0;
                 for ($j = 0; $j < $n_constraints; $j++) {
-                    $failed += $this->constraints[$j]($this, $son_genome);
+                    $failed += $this->constraints[$j]($son_genome, $data);
                 }
 
                 if ($failed == 0) {  // Calculamos objetivos si cumple restric.
                     for ($i = 0; $i < $n_evals; $i++) {
-                        $fit[] = $this->objectives[$i]($this,
-                                                       $son_genome);
+                        $fit[] = $this->objectives[$i]($son_genome, $data);
                     }
                 } else {  // Aplicamos penalización si no cumple restricciones
                     for ($i = 0; $i < $n_evals; $i++) {
