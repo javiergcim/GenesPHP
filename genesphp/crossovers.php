@@ -488,6 +488,12 @@ function crossover_two_points(&$task, &$ind_a, &$ind_b, &$args)
     $cut_a = \mt_rand(0, \count($gen_a) - 1);
     $cut_b = \mt_rand(0, \count($gen_a) - 1);
 
+    if ($cut_a > $cut_b) {
+        $temp = $cut_a;
+        $cut_a = $cut_b;
+        $cut_b = $temp;
+    }
+
     $left_a = \array_slice($gen_a, 0, $cut_a);
     $center_a = \array_slice($gen_a, $cut_a, $cut_b);
     $right_a = \array_slice($gen_a, $cut_b);
