@@ -447,9 +447,8 @@ function crossover_one_point(&$task, &$ind_a, &$ind_b, &$args)
     // Elegimos al azar el punto de corte
     $gen_a = $ind_a->get_raw_genome();
     $gen_b = $ind_b->get_raw_genome();
-    $size_1 = \count($gen_a) - 1;
 
-    $cut_point = \mt_rand(1, $size_1);
+    $cut_point = \mt_rand(1, \count($gen_a) - 1);
     $left_a = \array_slice($gen_a, 0, $cut_point);
     $right_a = \array_slice($gen_a, $cut_point);
 
@@ -458,6 +457,47 @@ function crossover_one_point(&$task, &$ind_a, &$ind_b, &$args)
 
     $son_l_gen = \array_merge($left_a, $right_b);
     $son_r_gen = \array_merge($left_b, $right_a);
+
+    // Se instancian los hijos
+    $a = clone($ind_a);
+    $a->set_genome_from_raw($son_l_gen);
+    $a->set_fitness(null);
+    $b = clone($ind_b);
+    $b->set_genome_from_raw($son_r_gen);
+    $b->set_fitness(null);
+
+    return [$a, $b];
+}
+
+/**
+* Realiza un cruzamiento de dos individuos, mezclando los genomas aplicando dos
+* cortes.
+*
+* @param Task $task El objeto Task asociado al problema.
+* @param Individual $ind_a El primer individuo a cruzar.
+* @param Individual $ind_b El segundo individuo a cruzar.
+*
+* @return array Un arreglo con dos Individuos descendentes
+**/
+function crossover_two_points(&$task, &$ind_a, &$ind_b, &$args)
+{
+    // Elegimos al azar el punto de corte
+    $gen_a = $ind_a->get_raw_genome();
+    $gen_b = $ind_b->get_raw_genome();
+
+    $cut_a = \mt_rand(0, \count($gen_a) - 1);
+    $cut_b = \mt_rand(0, \count($gen_a) - 1);
+
+    $left_a = \array_slice($gen_a, 0, $cut_a);
+    $center_a = \array_slice($gen_a, $cut_a, $cut_b);
+    $right_a = \array_slice($gen_a, $cut_b);
+
+    $left_b = \array_slice($gen_b, 0, $cut_a);
+    $center_b = \array_slice($gen_b, $cut_a, $cut_b);
+    $right_b = \array_slice($gen_b, $cut_b);
+
+    $son_l_gen = \array_merge($left_a, $center_b, $right_a);
+    $son_r_gen = \array_merge($left_b, $center_a, $right_b);
 
     // Se instancian los hijos
     $a = clone($ind_a);

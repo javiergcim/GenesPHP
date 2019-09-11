@@ -411,15 +411,14 @@ class Task
     * contrario.
     * @param array $max_penalties Arreglo con los valores de penalización
     * máxima. Uno para cada función objetivo. Deben existir tantos valores de
-    * penalización como funciones objetivo la tarea.
+    * penalización como funciones objetivo en la tarea.
     **/
     public function set_constraints($constraints, $max_penalties)
     {
         $n_penalties = \count($max_penalties);
         $n_constraints = \count($constraints);
 
-        if ($n_penalities == $n_constraints &&
-            $n_penalties == \count($this->objectives)) {
+        if ($n_penalties == \count($this->objectives)) {
             $this->constraints = $constraints;
             $this->penalties = [];
             for ($i = 0; $i < $n_penalties; $i++) {
