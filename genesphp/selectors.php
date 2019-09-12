@@ -65,6 +65,7 @@ function select_tournament(&$task, &$args)
     $pop_max_i = \count($population) - 1;
     $p_type = $task->get_obj_factors($obj_index);
     $matchs = $args['matchs'];
+    $childs = [];
 
     for ($pair = 0; $pair < $matchs; $pair++) {
         // Elegimos padres
@@ -96,12 +97,18 @@ function select_tournament(&$task, &$args)
             $p++;
         }
 
-        $childs = $task->apply_crossover(
+        $sons = $task->apply_crossover(
             $population[$parents_index[0]],
             $population[$parents_index[1]]
         );
-        $population[$parents_index[0]] = $childs[0];
-        $population[$parents_index[1]] = $childs[1];
+
+        $childs[$parents_index[0]] = $sons[0];
+        $childs[$parents_index[1]] = $sons[1];
+
+        // Se integra toda la descendencia en la población (sustituyen a padres)
+        foreach ($childs as $index => $new_born) {
+            $population[$index] = $new_born;
+        }
     }
 
     $task->replace_population($population);
