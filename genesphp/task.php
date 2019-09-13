@@ -166,7 +166,8 @@ class Task
     */
     public function adjust_population_size($n = null)
     {
-        $max_index = \count($this->population) - 1;
+        $current_size = \count($this->population);
+        $max_index = $current_size - 1;
 
         // Se ajusta o no el atributo $desired_size, y se establece $n final
         if ($n === null) {
@@ -175,15 +176,21 @@ class Task
             $this->desired_size = $n;
         }
 
-        $diff = $n - $max_index - 1;  // + Si le faltan, - si le sobran
+        $diff = $n - $current_size;  // + Si le faltan, - si le sobran
 
         // Se debe truncar o quedó igual
         if ($diff <= 0) {
-            $change = false;
-            $this->population = \array_slice($this->population, 0, $n);
+            $re_evaluate = false;
+            $selected = \sort(\array_rand($this->population, $n));
+            $reduced_pop = [];
+            foreach ($selected as $i) {
+                $reduced_pop[] = $this->population[$i];
+            }
+            
+            $this->replace_population($reduced_pop);
         } // Se deben añadir elementos
         else {
-            $change = true;
+            $re_evaluate = true;
             while ($diff > 0) {
                 // Se elige un elemento al azar de la población, y se clona
                 $index = \mt_rand(0, $max_index);
@@ -199,7 +206,7 @@ class Task
             }
         }
 
-        return $change;
+        return $re_evaluate;
     }
 
     /**
