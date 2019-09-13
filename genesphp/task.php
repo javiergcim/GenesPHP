@@ -181,15 +181,7 @@ class Task
         // Se debe truncar o quedó igual
         if ($diff <= 0) {
             $re_evaluate = false;
-            $selected = [0];
-            $selected = \array_merge($selected,
-                                     \sort(\array_rand($this->population, $n)));
-            $reduced_pop = [];
-            foreach ($selected as $i) {
-                $reduced_pop[] = $this->population[$i];
-            }
-
-            $this->replace_population($reduced_pop);
+            $this->population = \array_slice($this->population, 0, $n);
         } // Se deben añadir elementos
         else {
             $re_evaluate = true;
