@@ -46,7 +46,6 @@ function my_example()
     $struct = [[true, 5, 5],
                [true, 5, 5]];
     $the_pop = \genesphp\init_binary_pop($n, $struct);
-
     $task->set_population($the_pop);
 
     // Se establecen funciones de cruza, mutacion y selección

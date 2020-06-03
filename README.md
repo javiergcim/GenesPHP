@@ -36,5 +36,5 @@ different ways to encode the genome.
 - More selection algorithms
 - Add multiobjective selector(s)
 - More mutation operators
-- More crossover aoperators
+- More crossover operators
 - User documentation and examples

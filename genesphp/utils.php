@@ -52,6 +52,8 @@ function gauss_dist($mean, $sd, $integer)
 
 /**
 * Convierte un número flotante a una expresión binaria de punto fijo.
+* Se buscará encontrar la expresión binaria más cercana posible al número,
+* aún si está fuera de rango.
 *
 * @param float $num El número a convertir.
 * @param bool $sign Indica si debe usarse bit de signo.
@@ -62,46 +64,45 @@ function gauss_dist($mean, $sd, $integer)
 **/
 function dec_to_bin($num, $sign, $i_dig, $d_dig)
 {
-    if ($num >= 0.0) {
-        if ($sign) {
+    $max_abs_value =
+        (\pow(2, $i_dig) - 1) +
+        (\pow(2, $d_dig) - 1) / \pow(2, $d_dig);
+
+    // Se establece bit se signo (si existe)
+    if ($sign) {
+        if ($num < 0.0){
+            $binary = ['1'];
+        } else{
             $binary = ['0'];
         }
-        else {
-            $binary = [];
-        }
-        $numint = \floor($num);
-        $numdec = $num - $numint;
-    }
-    else if ($num < 0.0 && $sign) {
-        $binary = ['1'];
-        $numint = -\ceil($num);
-        $numdec = -($num + $numint);
-    }
-    else {
-        throw new Exception('Invalid number or out of range value');
+    } else {
+        $binary = [];
     }
 
-    $binint = \decbin(numint);
-    $missed = $i_dig - \count($binint);
-    if ($missed < 0) {
-        throw new Exception('Out of range value!');
-    }
-    $binint = \array_merge(\array_fill(0, $missed, '0'), \str_split($binint));
+    if ($num < 0.0 && !$sign) {  // Debe ser cero
+        $tmp_binary = \array_fill(0, $i_dig + $d_dig, '0');
+        $binary = \array_merge($binary, $tmp_binary);
+    } else if (\abs($num) >= $max_abs_value){
+        $tmp_binary = \array_fill(0, $i_dig + $d_dig, '1');
+        $binary = \array_merge($binary, $tmp_binary);
+    } else{
+        $abs_num = \abs($num);
+        $numint = \floor($abs_num);
+        $numdec = $abs_num - $numint;
 
-    $bindec = [];
-    for ($i = -1; $i >= -$d_dig; $i--) {
-        $n = 2.0**$i;
-        if (($numdec - $n) < 0.0) {
-            $bindec[] = '0';  // Se agrega un '0'
-        }
-        else {
-            $bindec[] = '1';  // Se agrega un '1'
-            $numdec -= $n;
-        }
-    }
+        // Se crea la parte entera
+        $tmp_str = \sprintf( '%0' . \strval($i_dig) . 'd', \decbin($numint));
+        $binint = \str_split($tmp_str);
 
-    $binary = \array_merge($binary, $binint);
-    $binary = \array_merge($binary, $bindec);
+        // Se crea la parte decimal
+        $numdec = \floor($numdec * \pow(2, $d_dig));
+        $tmp_str = \sprintf( '%0' . \strval($d_dig) . 'd', \decbin($numdec));
+        $bindec = \str_split($tmp_str);
+
+        # Se arma la cadena final
+        $binary = \array_merge($binary, $binint);
+        $binary = \array_merge($binary, $bindec);
+    }
 
     return $binary;
 }

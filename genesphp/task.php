@@ -142,7 +142,7 @@ class Task
     /** Ajusta la población para que contenga la cantidad de elementos
     * especificado en el atributo *$desired_size* de la instancia, o bien, la
     * indicada explícitamente como argumento. Si se indica explícitamente,
-    * el núevo tamaño será establecido como el tamaño *deseado* de la
+    * el nuevo tamaño será establecido como el tamaño *deseado* de la
     * población.
     *
     * Modifica la población in-situ.
@@ -325,7 +325,7 @@ class Task
     * establecido en el arreglo dado como parámetro, que será una lista de los
     * índices de las funciones objetivo a considerar.
     *
-    * Si no se provee de objectivos, se priorizarán los mismos tal y como
+    * Si no se provee de objetivos, se priorizarán los mismos tal y como
     * fueron registrados en la tarea. La tarea debe tener definidas, al menos,
     * las funciones objetivo.
     *
@@ -437,7 +437,7 @@ class Task
     * Establece la función de mutación que se aplicará a los individuos.
     *
     * La función debe ser capaz de recibir tres parámetros: una referencia al
-    * objeto Task asociado, una referencia al individuo a mutar, y un arregllo
+    * objeto Task asociado, una referencia al individuo a mutar, y un arreglo
     * de argumentos. Debe modificar el genoma del individuo
     * proporcionado in-situ.
     *

@@ -61,8 +61,8 @@ class BinaryInd extends Individual
     public function get_genome()
     {
         $nice_genome = [];
-        $genome = implode('', $this->genome);
-        $n_vars = count($this->var_bits);
+        $genome = \implode('', $this->genome);
+        $n_vars = \count($this->var_bits);
         $left = 0;
         for ($i = 0; $i < $n_vars; $i++) {
             $v = $this->var_bits[$i];
@@ -72,15 +72,15 @@ class BinaryInd extends Individual
             if ($s) {  // Si tiene bit de signo
                 if ($genome[$left] == '0') {  // Positivo
                     $nice_genome[] =
-                        bindec(substr($genome, $left + 1, $v - 1)) * $p;
+                        \bindec(\substr($genome, $left + 1, $v - 1)) * $p;
                 }
                 else {  // Negativo
                     $nice_genome[] =
-                        -bindec(substr($genome, $left + 1, $v - 1)) * $p;
+                        -\bindec(\substr($genome, $left + 1, $v - 1)) * $p;
                 }
             }
             else {
-                $nice_genome[] = bindec(substr($genome, $left, $v)) * $p;
+                $nice_genome[] = \bindec(\substr($genome, $left, $v)) * $p;
             }
 
             $left += $v;
@@ -97,11 +97,11 @@ class BinaryInd extends Individual
     * El genoma debe ser compatible con las especificaciones establecidas en
     * los atributos del indivuduo, como *var_bits* y *sign_bits*
     *
-    * @param array $genome El genome en su forma amigable.
+    * @param array $genome El genoma en su forma amigable.
     **/
     public function set_genome(&$genome)
     {
-        $n_vars = count($this->var_bits);
+        $n_vars = \count($this->var_bits);
         $struct = $this->struct;
         $new_raw = [];
 
