@@ -43,8 +43,9 @@ function my_example()
     $task = new \genesphp\Task();
 
     // Se crea y asigna la población inicial
-    $struct = [[true, 5, 5],
-               [true, 5, 5]];
+    // Two individuals [sign bit (bool), integer bits (int), matissa bits (int)]
+    $struct = [[true, 5, 5],   // x
+               [true, 5, 5]];  // y
     $the_pop = \genesphp\init_binary_pop($n, $struct);
     $task->set_population($the_pop);
 

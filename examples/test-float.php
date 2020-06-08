@@ -33,7 +33,7 @@ function my_example()
     $n = 500;  // Individuos
     $gen = 200;  // Generaciones máximas
     $cp = 0.3;  // Probabilidad de cruza
-    $max_mp = 1.0; // Máxima probabilidad de mutación
+    $max_mp = 0.5; // Máxima probabilidad de mutación
     $cycle_mp = 100; // Generaciónes por ciclo de mutación
     $elitism = 0.5;  // Porcentaje de elitismo
     $duration = INF;  // Duración máxima en segundos
@@ -45,18 +45,17 @@ function my_example()
     $task = new \genesphp\Task();
 
     // Se crea y asigna la población inicial
-    $struct = [[True, 5, 5],  # x
-               [True, 5, 5]];  # y
+    # (individuals, number of genes, min random value, max random value)
+    $the_pop = \genesphp\init_float_pop($n, 2, -5.0, 5);
     $the_pop = \genesphp\init_binary_pop($n, $struct);
     $task->set_population($the_pop);
 
     // Se establecen funciones de cruza, mutacion y selección
     $task->set_evals(['example_evaluation_function'], [-1.0]);
     $task->set_mutator('\\genesphp\\mutate_normal',
-                       ['mp' => 1.0, 'sd' => 5.0, 'integer' => false]);
+                       ['mp' => $max_mp, 'sd' => 5.0, 'integer' => false]);
     $task->set_crossover('\\genesphp\\crossover_one_point');
-    $task->set_selector('\\genesphp\\select_tournament',
-                        ['cp' => $cp, 'k' => 50, 'matchs' => 100]);
+    $task->set_selector('\\genesphp\\select_vasconcelos', ['cp' => $cp]);
 
     // Inicia el algoritmo
     $sol = \genesphp\cos_mutation_ga(
