@@ -9,9 +9,9 @@ without any strange dependency. Pure PHP.
 
 2. **Write your own evaluation function**. This function must accept two
    parameters:
-   * A list (the genome). Each item in the list is a gene.
+   * An array (the genome). Each item in the list is a gene.
    * An arbitrary object (which is defined by you, as complementary data to
-     evaluate the individuals). By default, this object is *None*.
+     evaluate the individuals). By default, this object is *NULL*.
 
    The function must return a floating value as *fitness* of the individual.
 
