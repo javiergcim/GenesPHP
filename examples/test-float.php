@@ -31,13 +31,13 @@ function my_example()
 {
     // Se crean valores de configuración
     $n = 500;  // Individuos
-    $gen = 200;  // Generaciones máximas
+    $gen = 400;  // Generaciones máximas
     $cp = 0.3;  // Probabilidad de cruza
     $max_mp = 0.5; // Máxima probabilidad de mutación
     $cycle_mp = 100; // Generaciónes por ciclo de mutación
     $elitism = 0.5;  // Porcentaje de elitismo
     $duration = INF;  // Duración máxima en segundos
-    $verbose = 50;  // Frecuencia de reporte
+    $verbose = 25;  // Frecuencia de reporte
 
     // Calculamos una duración adecuada de ejecución (MAX 30 segundos):
 
@@ -47,7 +47,6 @@ function my_example()
     // Se crea y asigna la población inicial
     # (individuals, number of genes, min random value, max random value)
     $the_pop = \genesphp\init_float_pop($n, 2, -5.0, 5);
-    $the_pop = \genesphp\init_binary_pop($n, $struct);
     $task->set_population($the_pop);
 
     // Se establecen funciones de cruza, mutacion y selección

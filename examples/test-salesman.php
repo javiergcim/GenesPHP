@@ -54,7 +54,7 @@ function my_example()
              'cost' => \genesphp\create_distance_matrix($locations)];  // Costos
 
     $n = 500;  // Individuos
-    $gen = 300;  // Generaciones máximas
+    $gen = 500;  // Generaciones máximas
     $cp = 0.3;  // Probabilidad de cruza
     $max_mp = 0.1; // Máxima probabilidad de mutación
     $cycle_mp = 100.0; // Generaciónes por ciclo de mutación
