@@ -82,6 +82,9 @@ function general_ga(
 * @param int $sec Segundos que aproximadamente correrá el algoritmo.
 * @param int $gen Generaciones que se ejecutará el algoritmo genético.
 * @param int $verbose Indica cada cuantas generaciones se reportan avances.
+* @param string $report Función de reporte. Recibirá la generación y mejor
+  fitness de la iteración actual, cada tantas generaciones como se especifique
+  según *verbose*.
 *
 * @return Individual El individuo con mejor aptitud al momento de finalizar la
 * corrida.
@@ -93,7 +96,8 @@ function cos_mutation_ga(
     $elitism,
     $sec,
     $gen = INF,
-    $verbose = INF
+    $verbose = INF,
+    $report = ''
 ) {
     // Se inicia la toma de tiempo
     $start_time = \microtime(true);
@@ -134,9 +138,20 @@ function cos_mutation_ga(
         // Se verifica si se debe imprimir
         if ($verbose != INF) {
             if ($g % $verbose == 0) {
-                echo 'Generation: ' . strval($g) . "\n";
-                echo 'Best fitness: ' .
-                \implode(', ', $task->get_individual(0)->get_fitness()) . "\n\n";
+                if ($report != '') {
+                    ($report)(
+                        $g,
+                        $task->get_individual(0)->get_fitness(),
+                        $task->get_individual(0)->get_genome()
+                    );
+                } else {
+                    echo 'Generation: ' . strval($g) . "\n";
+                    echo 'Best fitness: ' .
+                    \implode(
+                        ', ',
+                        $task->get_individual(0)->get_fitness()
+                        ) . "\n\n";
+                }
             }
         }
 
