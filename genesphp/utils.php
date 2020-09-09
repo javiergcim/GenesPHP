@@ -43,10 +43,10 @@ function gauss_dist($mean, $sd, $integer)
     $v = \sqrt(-2.0 * \log($x)) * \cos(2.0 * M_PI * $y) * $sd + $mean;
 
     if ($integer) {
-        return $v;
+        return \round($v);
     }
     else {
-        return \round($v);
+        return $v;
     }
 }
 

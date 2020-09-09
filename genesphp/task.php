@@ -304,13 +304,13 @@ class Task
             if ($x > $y) {
                 if ($this->obj_factors[$objective] > 0) {  // Es maximización
                     return -1;
-                } else {  // Es maximización
+                } else {  // Es minimización
                     return 1;
                 }
             } elseif ($x < $y) {
                 if ($this->obj_factors[$objective] > 0) {  // Es maximización
                     return 1;
-                } else {  // Es maximización
+                } else {  // Es minimización
                     return -1;
                 }
             }
