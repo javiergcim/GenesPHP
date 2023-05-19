@@ -135,7 +135,8 @@ function fisher_yates(&$elements)
 
 /**
 * Elige n elementos al azar sin reemplazo de un arreglo, utilizando una variante
-* del algoritmo Fisher-Yates.
+* del algoritmo Fisher-Yates. Los elementos son escogidos solo en el rango
+* especificado.
 *
 * Fisher, R. A., & Yates, F. (1943). Statistical tables for biological,
 * agricultural and medical research. Oliver and Boyd Ltd, London.
@@ -143,8 +144,8 @@ function fisher_yates(&$elements)
 * *Asunciones:*
 * Se asume que el arreglo posee indices númerados de 0 a count($elements - 1).
 *
-* @param array $min Parámetro minimo para el range.
-* @param array $max Parámetro máximo para el range.
+* @param int $min Parámetro minimo para el range.
+* @param int $max Parámetro máximo para el range.
 * @param int $n La cantidad de elementos a elegir. Debe estar entre 1 y la
 * la diferencia $max - $min.
 *
@@ -154,7 +155,6 @@ function sample_for_range($min, $max, $n)
 {
     $elements = \range($min, $max);
     $max_i = $max - $min;
-    $selected = [];
     $i = 0;
     while ($i <= $n) {
         $r = \mt_rand($i, $max_i);
@@ -203,7 +203,7 @@ function haversine_distance(
 
 /**
 * Crea la matriz de distancias entre un conjunto de puntos, dados de la forma:
-* ['id' => id, latitude' => lat, 'longitude' => long]
+* ['id' => id, 'latitude' => lat, 'longitude' => long]
 *
 * @param array $points Un arreglo con los puntos a calcular sus distancias.
 *

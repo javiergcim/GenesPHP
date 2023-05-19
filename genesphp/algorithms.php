@@ -83,8 +83,8 @@ function general_ga(
 * @param int $gen Generaciones que se ejecutará el algoritmo genético.
 * @param int $verbose Indica cada cuantas generaciones se reportan avances.
 * @param string $report Función de reporte. Recibirá la generación y mejor
-  fitness de la iteración actual, cada tantas generaciones como se especifique
-  según *verbose*.
+*  fitness de la iteración actual, cada tantas generaciones como se especifique
+*  según *verbose*.
 *
 * @return Individual El individuo con mejor aptitud al momento de finalizar la
 * corrida.

@@ -1,32 +1,33 @@
 <?php
+
 namespace genesphp;
 
 /**
-* Hace un cruzamiento de genomas que codifican una permutación de destinos
-* para el problema del agente viajero, inspirado en SCX.
-*
-* El algoritmo genera dos hijos. Uno calculado de derecha a izquierda y otro de
-* izquierda a derecha.
-*
-* Se asume que el primer objetivo de la tarea asociada determina si el problema
-* se maximiza o minimiza.
-*
-* Ahmed, Z. H. (2010). Genetic algorithm for the traveling salesman problem
-* using sequential constructive crossover operator. International Journal of
-* Biometrics & Bioinformatics (IJBB), 3(6), 96.
-*
-* *Asunciones:*
-*
-* Se asume que el genoma no posee elementos repetidos, que el primer
-* elemento del recorrido (la salida), no se encuentra en el genoma y es fijo.
-*
-* @param Task $task El objeto Task asociado al problema.
-* @param Individual $ind_a El primer individuo a cruzar.
-* @param Individual $ind_b El segundo individuo a cruzar.
-* @param array $args Los parámetros propios del método.
-*
-* @return array Un arreglo con dos individuos descendientes.
-**/
+ * Hace un cruzamiento de genomas que codifican una permutación de destinos
+ * para el problema del agente viajero, inspirado en SCX.
+ *
+ * El algoritmo genera dos hijos. Uno calculado de derecha a izquierda y otro de
+ * izquierda a derecha.
+ *
+ * Se asume que el primer objetivo de la tarea asociada determina si el problema
+ * se maximiza o minimiza.
+ *
+ * Ahmed, Z. H. (2010). Genetic algorithm for the traveling salesman problem
+ * using sequential constructive crossover operator. International Journal of
+ * Biometrics & Bioinformatics (IJBB), 3(6), 96.
+ *
+ * *Asunciones:*
+ *
+ * Se asume que el genoma no posee elementos repetidos, que el primer
+ * elemento del recorrido (la salida), no se encuentra en el genoma y es fijo.
+ *
+ * @param Task $task El objeto Task asociado al problema.
+ * @param Individual $ind_a El primer individuo a cruzar.
+ * @param Individual $ind_b El segundo individuo a cruzar.
+ * @param array $args Los parámetros propios del método.
+ *
+ * @return array Un arreglo con dos individuos descendientes.
+ **/
 
 function crossover_scx(&$task, &$ind_a, &$ind_b, &$args)
 {
@@ -228,10 +229,10 @@ function crossover_scx(&$task, &$ind_a, &$ind_b, &$args)
     }
 
     // Se instancias los hijos
-    $a = clone($ind_a);
+    $a = clone ($ind_a);
     $a->set_genome_from_raw($son_l_gen);
     $a->set_fitness(null);
-    $b = clone($ind_b);
+    $b = clone ($ind_b);
     $b->set_genome_from_raw($son_r_gen);
     $b->set_fitness(null);
 
@@ -239,34 +240,34 @@ function crossover_scx(&$task, &$ind_a, &$ind_b, &$args)
 }
 
 /**
-* Hace un cruzamiento de genomas que codifican una permutación, inspirado
-* en SCX.
-*
-* Esta versión no considera una matriz de costos. Los nodos son insertados
-* siguiendo un esquema determinista.
-*
-* El algoritmo genera dos hijos. Uno calculado de derecha a izquierda y otro de
-* izquierda a derecha.
-*
-* Se asume que el primer objetivo de la tarea asociada determina si el problema
-* se maximiza o minimiza.
-*
-* Ahmed, Z. H. (2010). Genetic algorithm for the traveling salesman problem
-* using sequential constructive crossover operator. International Journal of
-* Biometrics & Bioinformatics (IJBB), 3(6), 96.
-*
-* *Asunciones:*
-*
-* Se asume que el genoma no posee elementos repetidos, que el primer
-* elemento del recorrido (la salida), no se encuentra en el genoma y es fijo.
-*
-* @param Task $task El objeto Task asociado al problema.
-* @param Individual $ind_a El primer individuo a cruzar.
-* @param Individual $ind_b El segundo individuo a cruzar.
-* @param array $args Los parámetros propios del método.
-*
-* @return array Un arreglo con dos individuos descendientes.
-**/
+ * Hace un cruzamiento de genomas que codifican una permutación, inspirado
+ * en SCX.
+ *
+ * Esta versión no considera una matriz de costos. Los nodos son insertados
+ * siguiendo un esquema determinista.
+ *
+ * El algoritmo genera dos hijos. Uno calculado de derecha a izquierda y otro de
+ * izquierda a derecha.
+ *
+ * Se asume que el primer objetivo de la tarea asociada determina si el problema
+ * se maximiza o minimiza.
+ *
+ * Ahmed, Z. H. (2010). Genetic algorithm for the traveling salesman problem
+ * using sequential constructive crossover operator. International Journal of
+ * Biometrics & Bioinformatics (IJBB), 3(6), 96.
+ *
+ * *Asunciones:*
+ *
+ * Se asume que el genoma no posee elementos repetidos, que el primer
+ * elemento del recorrido (la salida), no se encuentra en el genoma y es fijo.
+ *
+ * @param Task $task El objeto Task asociado al problema.
+ * @param Individual $ind_a El primer individuo a cruzar.
+ * @param Individual $ind_b El segundo individuo a cruzar.
+ * @param array $args Los parámetros propios del método.
+ *
+ * @return array Un arreglo con dos individuos descendientes.
+ **/
 
 function crossover_pseudoscx(&$task, &$ind_a, &$ind_b, &$args)
 {
@@ -314,8 +315,7 @@ function crossover_pseudoscx(&$task, &$ind_a, &$ind_b, &$args)
     while ($current_index >= 0) {
         if ($next_source == 'a') {
             $next_source = 'b';
-        }
-        else {
+        } else {
             $next_source = 'a';
         }
 
@@ -341,8 +341,7 @@ function crossover_pseudoscx(&$task, &$ind_a, &$ind_b, &$args)
                     }
                 }
             }
-        }
-        else {
+        } else {
             // Buscamos el nodo legal en 'b' ---
             $not_found = true;
             for ($i = $map_b[$last_added_l] + 1; $i < $size; $i++) {
@@ -391,8 +390,7 @@ function crossover_pseudoscx(&$task, &$ind_a, &$ind_b, &$args)
                     }
                 }
             }
-        }
-        else {
+        } else {
             // Buscamos el nodo legal en 'b' ---
             $not_found = true;
             for ($i = $map_b[$last_added_r] - 1; $i >= 0; $i--) {
@@ -422,10 +420,10 @@ function crossover_pseudoscx(&$task, &$ind_a, &$ind_b, &$args)
     }
 
     // Se instancias los hijos
-    $a = clone($ind_a);
+    $a = clone ($ind_a);
     $a->set_genome_from_raw($son_l_gen);
     $a->set_fitness(null);
-    $b = clone($ind_b);
+    $b = clone ($ind_b);
     $b->set_genome_from_raw($son_r_gen);
     $b->set_fitness(null);
 
@@ -433,15 +431,15 @@ function crossover_pseudoscx(&$task, &$ind_a, &$ind_b, &$args)
 }
 
 /**
-* Realiza un cruzamiento de dos individuos, mezclando los genomas aplicando un
-* corte.
-*
-* @param Task $task El objeto Task asociado al problema.
-* @param Individual $ind_a El primer individuo a cruzar.
-* @param Individual $ind_b El segundo individuo a cruzar.
-*
-* @return array Un arreglo con dos Individuos descendentes
-**/
+ * Realiza un cruzamiento de dos individuos, mezclando los genomas aplicando un
+ * corte.
+ *
+ * @param Task $task El objeto Task asociado al problema.
+ * @param Individual $ind_a El primer individuo a cruzar.
+ * @param Individual $ind_b El segundo individuo a cruzar.
+ *
+ * @return array Un arreglo con dos Individuos descendentes.
+ **/
 function crossover_one_point(&$task, &$ind_a, &$ind_b, &$args)
 {
     // Elegimos al azar el punto de corte
@@ -459,10 +457,10 @@ function crossover_one_point(&$task, &$ind_a, &$ind_b, &$args)
     $son_r_gen = \array_merge($left_b, $right_a);
 
     // Se instancian los hijos
-    $a = clone($ind_a);
+    $a = clone ($ind_a);
     $a->set_genome_from_raw($son_l_gen);
     $a->set_fitness(null);
-    $b = clone($ind_b);
+    $b = clone ($ind_b);
     $b->set_genome_from_raw($son_r_gen);
     $b->set_fitness(null);
 
@@ -470,15 +468,15 @@ function crossover_one_point(&$task, &$ind_a, &$ind_b, &$args)
 }
 
 /**
-* Realiza un cruzamiento de dos individuos, mezclando los genomas aplicando dos
-* cortes.
-*
-* @param Task $task El objeto Task asociado al problema.
-* @param Individual $ind_a El primer individuo a cruzar.
-* @param Individual $ind_b El segundo individuo a cruzar.
-*
-* @return array Un arreglo con dos Individuos descendentes
-**/
+ * Realiza un cruzamiento de dos individuos, mezclando los genomas aplicando dos
+ * cortes.
+ *
+ * @param Task $task El objeto Task asociado al problema.
+ * @param Individual $ind_a El primer individuo a cruzar.
+ * @param Individual $ind_b El segundo individuo a cruzar.
+ *
+ * @return array Un arreglo con dos Individuos descendentes.
+ **/
 function crossover_two_points(&$task, &$ind_a, &$ind_b, &$args)
 {
     // Elegimos al azar el punto de corte
@@ -506,10 +504,10 @@ function crossover_two_points(&$task, &$ind_a, &$ind_b, &$args)
     $son_r_gen = \array_merge($left_b, $center_a, $right_b);
 
     // Se instancian los hijos
-    $a = clone($ind_a);
+    $a = clone ($ind_a);
     $a->set_genome_from_raw($son_l_gen);
     $a->set_fitness(null);
-    $b = clone($ind_b);
+    $b = clone ($ind_b);
     $b->set_genome_from_raw($son_r_gen);
     $b->set_fitness(null);
 

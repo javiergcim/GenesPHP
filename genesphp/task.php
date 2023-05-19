@@ -605,9 +605,10 @@ class Task
     /**
     * Aplica el cruzamiento.
     *
-    * @param float $cp Probabilidad de cruzamiento.
+    * @param Individual $ind_a Primer individuo.
+    * @param Individual $ind_b Segundo individuo.
     *
-    * @return array Un arregloa con los dos descendientes.
+    * @return array Un arreglo con los dos descendientes.
     **/
     public function apply_crossover(&$ind_a, &$ind_b)
     {

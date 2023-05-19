@@ -20,17 +20,18 @@ without any strange dependency. Pure PHP.
    The function must return a floating value as *fitness* of the individual.
 
    ```
-   function my_eval_function(&$genome, &$data):  // Reference is recomended
+   function my_eval_function(&$genome, &$data) {  // Reference is recomended
        // x - $genome[0]
        // y - $genome[1]
 
        return ($genome[0] * $data[0]) + ($genome[1] * $data[1]);
+   }
    ```
 
 3. Define the structure of your variables. These can be floating values, binary
    strings, or permutations:
    ```
-   // Declaration of binary string structure as  array of arrays (2 variables)
+   // Declaration of binary string structure as array of arrays (2 variables)
    $struct = [[true, 5, 5],   // x (sign bit, integer bits, mantissa bits)
              [true, 5, 5]];   // y (sign bit, integer bits, mantissa bits)
    ```
@@ -50,7 +51,7 @@ without any strange dependency. Pure PHP.
    ```
    $task->set_evals(
        ['example_evaluation_function'],
-       [-1.0]);  # (-1 minimizes, +1 maximizes)
+       [-1.0]);  // (-1 minimizes, +1 maximizes)
    $task->set_mutator('\\genesphp\\mutate_flip', ['mp' => .3]);
    $task->set_crossover('\\genesphp\\crossover_one_point');
    $task->set_selector('\\genesphp\\select_vasconcelos', ['cp' => .5]);
