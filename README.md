@@ -13,9 +13,9 @@ without any strange dependency. Pure PHP.
 
 2. **Write your own evaluation function**. This function must accept two
    parameters:
-   * A list (the genome). Each item in the list is a gene.
+   * An array (the genome). Each item in the list is a gene.
    * An arbitrary object (which is defined by you, as complementary data to
-     evaluate the individuals). By default, this object is *None*.
+     evaluate the individuals). By default, this object is *Null*.
 
    The function must return a floating value as *fitness* of the individual.
 
@@ -33,14 +33,14 @@ without any strange dependency. Pure PHP.
    ```
    // Declaration of binary string structure as array of arrays (2 variables)
    $struct = [[true, 5, 5],   // x (sign bit, integer bits, mantissa bits)
-             [true, 5, 5]];   // y (sign bit, integer bits, mantissa bits)
+              [true, 5, 5]];   // y (sign bit, integer bits, mantissa bits)
    ```
 
 4. Create a population and assign to the *Task* object.
 
    ```
    $the_pop = \genesphp\init_binary_pop($n, $struct);
-   $data = [5, 20]  // Arbitrary data
+   $data = [5, 20];  // Arbitrary data
    $task->set_population($the_pop);
    $task->set_data($data);
    ```

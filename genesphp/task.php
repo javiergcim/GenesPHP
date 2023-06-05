@@ -284,7 +284,7 @@ class Task
     * @return int 1 si el primer elemento es mayor, 0 si son iguales, -1 si
     * es menor.
     **/
-    protected function order_individual(&$a, &$b)
+    protected function order_individual($a, $b)
     {
         $a_fit = $a->get_fitness();
         $b_fit = $b->get_fitness();

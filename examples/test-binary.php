@@ -31,7 +31,7 @@ function my_example()
 {
     // Se crean valores de configuración
     $n = 500;  // Individuos
-    $gen = 200;  // Generaciones máximas
+    $gen = 50;  // Generaciones máximas
     $cp = 0.3;  // Probabilidad de cruza
     $max_mp = 0.05; // Máxima probabilidad de mutación
     $cycle_mp = 100.0; // Generaciónes por ciclo de mutación

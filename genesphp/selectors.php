@@ -105,11 +105,12 @@ function select_tournament(&$task, &$args)
         $childs[$parents_index[0]] = $sons[0];
         $childs[$parents_index[1]] = $sons[1];
 
-        // Se integra toda la descendencia en la población (sustituyen a padres)
-        foreach ($childs as $index => $new_born) {
-            $population[$index] = $new_born;
-        }
     }
-
+    
+    // Se integra toda la descendencia en la población (sustituyen a padres)
+    foreach ($childs as $index => $new_born) {
+        $population[$index] = $new_born;
+    }
+    
     $task->replace_population($population);
 }

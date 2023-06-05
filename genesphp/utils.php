@@ -202,14 +202,37 @@ function haversine_distance(
 }
 
 /**
+ * Calcula la distancia euclidea entre dos puntos.
+ * 
+ * @param array $a Coordenadas del primer punto.
+ * @param array $b Coordenadas del segundo punto.
+ * 
+ * @return float La distancia euclidea entre ambos puntos.
+ */
+function cuclidean_distance($a, $b) {
+    $distance = 0;
+    $dimensions = count($a);
+
+    for ($i = 0; $i < $dimensions; $i++) {
+        $distance += pow($b[$i] - $a[$i], 2);
+    }
+
+    $distance = sqrt($distance);
+
+    return $distance;
+}
+
+/**
 * Crea la matriz de distancias entre un conjunto de puntos, dados de la forma:
 * ['id' => id, 'latitude' => lat, 'longitude' => long]
 *
 * @param array $points Un arreglo con los puntos a calcular sus distancias.
+* @param boolean $euclidean Indica si las distancias son euclideas. En ese caso, los puntos
+* son n-dimensionles, y se encuentran almacenados en un arreglo.
 *
 * @return array Una matriz cuadrada con las distancias entre los puntos.
 **/
-function create_distance_matrix($points)
+function create_distance_matrix($points, $euclidean = false)
 {
     // Creamos lista de destinos
     $points_map = [];
@@ -237,13 +260,23 @@ function create_distance_matrix($points)
                 $matrix[$key_from][$key_to] = 0.0;
                 break;
             }
-            $matrix[$key_from][$key_to] =
+
+            if ($euclidean) {
+                $matrix[$key_from][$key_to] = euclidean_distance(
+                    $points[$points_map[$key_from]]['coords'],
+                    $points[$points_map[$key_to]]['coords']
+                );
+            } else {
+                $matrix[$key_from][$key_to] =
                 haversine_distance(
                     $points[$points_map[$key_from]]['latitude'],
                     $points[$points_map[$key_from]]['longitude'],
                     $points[$points_map[$key_to]]['latitude'],
                     $points[$points_map[$key_to]]['longitude']
                 );
+            }
+
+            
             $matrix[$key_to][$key_from] = $matrix[$key_from][$key_to];
         }
     }
