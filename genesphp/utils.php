@@ -12,16 +12,10 @@ namespace genesphp;
 **/
 function geometric_dist($p)
 {
-    $max_int = \mt_getrandmax();
-
-    if ($p == 1.0) {
-        return 1;
-    } elseif ($p == 0.0) {
-        return PHP_INT_MAX;
-    } else {
-        $r = (float) \mt_rand(1, $max_int) / (float) $max_int;
-        return \ceil(\log($r, 1.0 - $p));
+    if ($p == 1.0 || $p <= 0.0) {
+        return $p === 1.0 ? 1 : INF;
     }
+    return \ceil(\log(1.0 - \mt_rand() / (\mt_getrandmax() + 1.0)) / \log(1.0 - $p));
 }
 
 /**
