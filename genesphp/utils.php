@@ -203,7 +203,7 @@ function haversine_distance(
  * 
  * @return float La distancia euclidea entre ambos puntos.
  */
-function cuclidean_distance($a, $b) {
+function euclidean_distance($a, $b) {
     $distance = 0;
     $dimensions = count($a);
 
