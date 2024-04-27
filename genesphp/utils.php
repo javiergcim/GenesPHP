@@ -114,16 +114,11 @@ function dec_to_bin($num, $sign, $i_dig, $d_dig)
 *
 * @param array @elements Un arreglo con los elementos a permutar.
 **/
-function fisher_yates(&$elements)
-{
-    $max = \count($elements) - 1;
-
-    while ($max > 0) {
-        $r = \mt_rand(0, $max);
-        $temp = $elements[$r];
-        $elements[$r] = $elements[$max];
-        $elements[$max] = $temp;
-        $max--;
+function fisher_yates(&$elements) {
+    $n = \count($elements);
+    for ($i = $n - 1; $i > 0; $i--) {
+        $j = \mt_rand(0, $i);
+        list($elements[$i], $elements[$j]) = array($elements[$j], $elements[$i]);
     }
 }
 
@@ -162,6 +157,27 @@ function sample_for_range($min, $max, $n)
 }
 
 /**
+ * Calcula la distancia euclidea entre dos puntos.
+ * 
+ * @param array $a Coordenadas del primer punto.
+ * @param array $b Coordenadas del segundo punto.
+ * 
+ * @return float La distancia euclidea entre ambos puntos.
+ */
+function euclidean_distance($a, $b) {
+    $distance = 0;
+    $dimensions = count($a);
+
+    for ($i = 0; $i < $dimensions; $i++) {
+        $distance += pow($b[$i] - $a[$i], 2);
+    }
+
+    $distance = sqrt($distance);
+
+    return $distance;
+}
+
+/**
 * Calcula la distancia entre dos puntos de la Tierra, con la fórmula de
 * Haversine.
 *
@@ -193,27 +209,6 @@ function haversine_distance(
     \cos($lat_from) * \cos($lat_to) * \pow(\sin($long_delta / 2.0), 2)));
 
     return $angle * $sphere_radius;
-}
-
-/**
- * Calcula la distancia euclidea entre dos puntos.
- * 
- * @param array $a Coordenadas del primer punto.
- * @param array $b Coordenadas del segundo punto.
- * 
- * @return float La distancia euclidea entre ambos puntos.
- */
-function euclidean_distance($a, $b) {
-    $distance = 0;
-    $dimensions = count($a);
-
-    for ($i = 0; $i < $dimensions; $i++) {
-        $distance += pow($b[$i] - $a[$i], 2);
-    }
-
-    $distance = sqrt($distance);
-
-    return $distance;
 }
 
 /**
